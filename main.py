@@ -27,6 +27,10 @@ from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage,
 )
 
+from datetime import datetime, timedelta, timezone
+import requests
+import json
+
 app = Flask(__name__)
 
 # get channel_secret and channel_access_token from your environment variable
@@ -42,6 +46,51 @@ if channel_access_token is None:
 line_bot_api = LineBotApi(channel_access_token)
 handler = WebhookHandler(channel_secret)
 
+def getJsonFromAPI(link):
+    headers = {"User-Agent": "@murufon"}
+    url = "https://spla2.yuu26.com/" + link
+    response = requests.get(url,headers=headers)
+    json_data = json.loads(response.text)
+    return json_data
+
+def getStageInfo(link, key, showRule=True):
+    json_data = getJsonFromAPI(link)
+    r = json_data['result']
+    time_format = '%Y-%m-%dT%H:%M:%S'
+    msg = f"{key}のスケジュールはこちら！\n"
+    msg += "```\n"
+    for i in range(3):
+        start = datetime.strptime(r[i]['start'], time_format)
+        end = datetime.strptime(r[i]['end'], time_format)
+        msg += "\n" # markdownの最初の空行は無視される
+        msg += f"{start.strftime('%H:%M')} - {end.strftime('%H:%M')}\n"
+        if showRule:
+            msg += f"{r[i]['rule']}\n"
+        msg += f"{r[i]['maps'][0]}/{r[i]['maps'][1]}\n"
+    msg += "```\n"
+    return msg
+
+def getCoopInfo(link, key):
+    json_data = getJsonFromAPI(link)
+    r = json_data['result']
+    time_format = '%Y-%m-%dT%H:%M:%S'
+    msg = f"{key}のスケジュールはこちら！\n"
+    msg += "```\n"
+    for i in range(2):
+        start = datetime.strptime(r[i]['start'], time_format)
+        end = datetime.strptime(r[i]['end'], time_format)
+        msg += "\n"
+        msg += f"{start.strftime('%m/%d %H:%M')} - {end.strftime('%m/%d %H:%M')}\n"
+        msg += f"{r[i]['stage']['name']}\n"
+        msg += f"{r[i]['weapons'][0]['name']}/{r[i]['weapons'][1]['name']}/{r[i]['weapons'][2]['name']}/{r[i]['weapons'][3]['name']}\n"
+    msg += "```\n"
+    return msg
+
+def getDailyRandomString():
+    JST = timezone(timedelta(hours=+9), 'JST')
+    now = datetime.now(JST)
+    now_str = str(now.strftime("%Y%m%d"))
+    return now_str
 
 @app.route("/callback", methods=['POST'])
 def callback():
@@ -63,6 +112,48 @@ def callback():
 
 @handler.add(MessageEvent, message=TextMessage)
 def message_text(event):
+
+    if event.message.text.lower() in ['gachi', 'ガチ', 'がち', 'gachima', 'ガチマ', 'がちま', 'ガチマッチ', 'がちまっち']:
+        key = "ガチマッチ"
+        link = "gachi/schedule"
+        msg = getStageInfo(link, key)
+        line_bot_api.reply_message(
+           event.reply_token,
+            TextSendMessage(text=msg)
+        )
+        return
+
+    if event.message.text.lower() in ['league', 'riguma', 'リグマ', 'りぐま', 'リーグマッチ', 'りーぐまっち']:
+        key = "リーグマッチ"
+        link = "league/schedule"
+        msg = getStageInfo(link, key)
+        line_bot_api.reply_message(
+           event.reply_token,
+            TextSendMessage(text=msg)
+        )
+        return
+
+    if event.message.text.lower() in ['regular', 'レギュラー', 'れぎゅらー', 'レギュラーマッチ', 'れぎゅらーまっち', 'nawabari', 'ナワバリ', 'なわばり', 'ナワバリバトル', 'なわばりばとる']:
+        key = "ナワバリバトル"
+        link = "regular/schedule"
+        msg = getStageInfo(link, key, showRule=False)
+        line_bot_api.reply_message(
+           event.reply_token,
+            TextSendMessage(text=msg)
+        )
+        return
+
+    if event.message.text.lower() in ['salmon', 'samon', 'sa-mon', 'サーモン', 'さーもん', 'サーモンラン', 'さーもんらん', 'サモラン', 'さもらん', 'coop', 'コープ', 'こーぷ', 'サケ', 'さけ', 'シャケ', 'しゃけ', '鮭']:
+        key = "サーモンラン"
+        link = "coop/schedule"
+        msg = getCoopInfo(link, key)
+        line_bot_api.reply_message(
+           event.reply_token,
+            TextSendMessage(text=msg)
+        )
+        return
+
+
     line_bot_api.reply_message(
         event.reply_token,
         TextSendMessage(text=event.message.text)

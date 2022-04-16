@@ -1,3 +1,4 @@
 # line
 line-bot-sdk
 flask
+requests
