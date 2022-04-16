@@ -82,7 +82,4 @@ if __name__ == "__main__":
     options = arg_parser.parse_args()
 
     app.run(debug=options.debug, port=options.port)
-© 2022 GitHub, Inc.
-Terms
-Privacy
-Security
+    
