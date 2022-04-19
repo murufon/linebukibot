@@ -12,6 +12,7 @@
 #  License for the specific language governing permissions and limitations
 #  under the License.
 
+from cgi import print_environ
 import os
 import sys
 from argparse import ArgumentParser
@@ -24,7 +25,7 @@ from linebot.exceptions import (
     InvalidSignatureError
 )
 from linebot.models import (
-    MessageEvent, TextMessage, TextSendMessage,
+    MessageEvent, TextMessage, TextSendMessage, ImageSendMessage
 )
 
 from datetime import datetime, timedelta, timezone
@@ -127,6 +128,15 @@ def message_text(event):
         line_bot_api.reply_message(
            event.reply_token,
             TextSendMessage(text=msg)
+        )
+        main_image_path = "static/" + path
+        preview_image_path = main_image_path
+        line_bot_api.reply_message(
+           event.reply_token,
+            ImageSendMessage(
+                original_content_url=f"https://linebukibot.herokuapp.com/{main_image_path}",
+                preview_image_url=f"https://linebukibot.herokuapp.com/{preview_image_path}"
+            )
         )
         return
 
