@@ -124,16 +124,12 @@ def message_text(event):
         path = "images/main/" + buki["name"]["ja_JP"] + ".png"
         profile = line_bot_api.get_profile(event.source.user_id)
         user = profile.display_name
-        # user = event.source.user
         msg=f"{user}さんにおすすめのブキは{ja_name}({en_name})！"
         text_send_message = TextSendMessage(text=msg)
 
         original_content_url = "https://linebukibot.herokuapp.com/static/" + urllib.parse.quote(path)
         # NOTE: URL全体をクオートするとコロンなども変換されて無効なURLになるので注意
-        # original_content_url = "https://linebukibot.herokuapp.com/static/images/main/.52.png"
-        # original_content_url = "https://placehold.jp/150x150.png"
-        # original_content_url = "https://cdn.wikiwiki.jp/to/w/splatoon2mix/%E3%83%96%E3%82%AD/.52%E3%82%AC%E3%83%AD%E3%83%B3/::ref/52%E3%82%AC%E3%83%AD%E3%83%B3.jpg"
-        # original_content_url = urllib.parse.quote(original_content_url)
+        # TODO: 高画質画像と入れ替える
         preview_image_url = original_content_url
         image_send_message = ImageSendMessage(
             original_content_url=original_content_url,
@@ -145,6 +141,35 @@ def message_text(event):
            [text_send_message, image_send_message]
         )
         return
+
+    if event.message.text.lower() in ['シューター', 'ブラスター', 'リールガン', 'マニューバー', 'ローラー', 'フデ', 'チャージャー', 'スロッシャー', 'スピナー', 'シェルター']:
+        type_name = event.message.text.lower()
+        json_data = json.load(open('weapon.json','r'))
+        filtered_data = list(filter(lambda x: x["type"]["name"]["ja_JP"] == type_name, json_data))
+        if filtered_data:
+            buki = random.choice(filtered_data)
+            ja_name = buki["name"]["ja_JP"]
+            en_name = buki["name"]["en_US"]
+            path = "images/main/" + buki["name"]["ja_JP"] + ".png"
+            profile = line_bot_api.get_profile(event.source.user_id)
+            user = profile.display_name
+            msg=f"{user}さんにおすすめの{type_name}は{ja_name}({en_name})！"
+            text_send_message = TextSendMessage(text=msg)
+
+            original_content_url = "https://linebukibot.herokuapp.com/static/" + urllib.parse.quote(path)
+            # NOTE: URL全体をクオートするとコロンなども変換されて無効なURLになるので注意
+            # TODO: 高画質画像と入れ替える
+            preview_image_url = original_content_url
+            image_send_message = ImageSendMessage(
+                original_content_url=original_content_url,
+                preview_image_url=preview_image_url
+            )
+
+            line_bot_api.reply_message(
+            event.reply_token,
+            [text_send_message, image_send_message]
+            )
+            return
 
     if event.message.text.lower() in ['gachi', 'ガチ', 'がち', 'gachima', 'ガチマ', 'がちま', 'ガチマッチ', 'がちまっち']:
         key = "ガチマッチ"
