@@ -120,8 +120,9 @@ def message_text(event):
         ja_name = buki["name"]["ja_JP"]
         en_name = buki["name"]["en_US"]
         path = "images/main/" + buki["name"]["ja_JP"] + ".png"
-        print(event.source)
-        user = event.source.user
+        profile = line_bot_api.get_profile(event.source.user_id)
+        user = profile.display_name
+        # user = event.source.user
         msg=f"{user}さんにおすすめのブキは{ja_name}({en_name})！"
         line_bot_api.reply_message(
            event.reply_token,
