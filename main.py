@@ -30,6 +30,7 @@ from linebot.models import (
 from datetime import datetime, timedelta, timezone
 import requests
 import json
+import random
 
 app = Flask(__name__)
 
@@ -112,6 +113,19 @@ def callback():
 
 @handler.add(MessageEvent, message=TextMessage)
 def message_text(event):
+
+    if event.message.text.lower() in ['buki', 'ぶき', 'ブキ', '武器', 'weapon', 'うえぽん', 'ウエポン']:
+        json_data = json.load(open('weapon.json','r'))
+        buki = random.choice(json_data)
+        ja_name = buki["name"]["ja_JP"]
+        en_name = buki["name"]["en_US"]
+        path = "images/main/" + buki["name"]["ja_JP"] + ".png"
+        user = event.message.source.type
+        msg=f"{user}さんにおすすめのブキは{ja_name}({en_name})！"
+        line_bot_api.reply_message(
+           event.reply_token,
+            TextSendMessage(text=msg)
+        )
 
     if event.message.text.lower() in ['gachi', 'ガチ', 'がち', 'gachima', 'ガチマ', 'がちま', 'ガチマッチ', 'がちまっち']:
         key = "ガチマッチ"
