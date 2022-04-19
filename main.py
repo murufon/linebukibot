@@ -211,6 +211,20 @@ def message_text(event):
         )
         return
 
+    if 'まそ語録' in event.message.text.lower():
+        with open('maso.txt', 'r') as f:
+            maso_list = f.read().split("\n")
+        profile = line_bot_api.get_profile(event.source.user_id)
+        user = profile.display_name
+        seed = getDailyRandomString() + user
+        random.seed(seed)
+        maso_goroku = random.choice(maso_list)
+        msg = f"今日のまそ語録: {maso_goroku}"
+        line_bot_api.reply_message(
+           event.reply_token,
+            TextSendMessage(text=msg)
+        )
+        return
     if 'おはよ' in event.message.text.lower():
         msg = "おはようございます！"
         line_bot_api.reply_message(
