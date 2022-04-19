@@ -129,9 +129,10 @@ def message_text(event):
         text_send_message = TextSendMessage(text=msg)
 
         # original_content_url = "https://linebukibot.herokuapp.com/static/" + path
-        original_content_url = "https://linebukibot.herokuapp.com/static/images/main/52.png"
-        # original_content_url = "https://placehold.jp/150x150.png"
-        original_content_url = urllib.parse.quote(original_content_url)
+        # original_content_url = "https://linebukibot.herokuapp.com/static/images/main/52.png"
+        original_content_url = "https://placehold.jp/150x150.png"
+        original_content_url = "https://cdn.wikiwiki.jp/to/w/splatoon2mix/%E3%83%96%E3%82%AD/.52%E3%82%AC%E3%83%AD%E3%83%B3/::ref/52%E3%82%AC%E3%83%AD%E3%83%B3.jpg"
+        # original_content_url = urllib.parse.quote(original_content_url)
         preview_image_url = original_content_url
         image_send_message = ImageSendMessage(
             original_content_url=original_content_url,
