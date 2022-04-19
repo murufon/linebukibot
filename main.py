@@ -125,10 +125,10 @@ def message_text(event):
         user = profile.display_name
         # user = event.source.user
         msg=f"{user}さんにおすすめのブキは{ja_name}({en_name})！"
-        line_bot_api.reply_message(
-           event.reply_token,
-            TextSendMessage(text=msg)
-        )
+        # line_bot_api.reply_message(
+        #    event.reply_token,
+        #     TextSendMessage(text=msg)
+        # )
         main_image_path = "static/" + path
         preview_image_path = main_image_path
         line_bot_api.reply_message(
