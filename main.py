@@ -121,17 +121,15 @@ def message_text(event):
         buki = random.choice(json_data)
         ja_name = buki["name"]["ja_JP"]
         en_name = buki["name"]["en_US"]
-        # path = "images/main/" + buki["name"]["ja_JP"] + ".png"
-        path = "twitter_images/" + buki["name"]["ja_JP"] + ".jpg"
+        image_name = buki["name"]["ja_JP"] + ".jpg"
         profile = line_bot_api.get_profile(event.source.user_id)
         user = profile.display_name
         msg=f"{user}さんにおすすめのブキは{ja_name}({en_name})！"
         text_send_message = TextSendMessage(text=msg)
 
-        original_content_url = "https://linebukibot.herokuapp.com/static/" + urllib.parse.quote(path)
         # NOTE: URL全体をクオートするとコロンなども変換されて無効なURLになるので注意
-        # TODO: 高画質画像と入れ替える
-        preview_image_url = original_content_url
+        original_content_url = "https://linebukibot.herokuapp.com/static/twitter_images_orig/" + urllib.parse.quote(image_name)
+        preview_image_url = "https://linebukibot.herokuapp.com/static/twitter_images_small/" + urllib.parse.quote(image_name)
         image_send_message = ImageSendMessage(
             original_content_url=original_content_url,
             preview_image_url=preview_image_url
@@ -151,17 +149,15 @@ def message_text(event):
             buki = random.choice(filtered_data)
             ja_name = buki["name"]["ja_JP"]
             en_name = buki["name"]["en_US"]
-            # path = "images/main/" + buki["name"]["ja_JP"] + ".png"
-            path = "twitter_images/" + buki["name"]["ja_JP"] + ".jpg"
+            image_name = buki["name"]["ja_JP"] + ".jpg"
             profile = line_bot_api.get_profile(event.source.user_id)
             user = profile.display_name
             msg=f"{user}さんにおすすめの{type_name}は{ja_name}({en_name})！"
             text_send_message = TextSendMessage(text=msg)
 
-            original_content_url = "https://linebukibot.herokuapp.com/static/" + urllib.parse.quote(path)
             # NOTE: URL全体をクオートするとコロンなども変換されて無効なURLになるので注意
-            # TODO: 高画質画像と入れ替える
-            preview_image_url = original_content_url
+            original_content_url = "https://linebukibot.herokuapp.com/static/twitter_images_orig/" + urllib.parse.quote(image_name)
+            preview_image_url = "https://linebukibot.herokuapp.com/static/twitter_images_small/" + urllib.parse.quote(image_name)
             image_send_message = ImageSendMessage(
                 original_content_url=original_content_url,
                 preview_image_url=preview_image_url

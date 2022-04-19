@@ -15,7 +15,9 @@ class ImageTest(unittest.TestCase):
         with open('weapon.json', 'r') as f:
             json_data = json.load(f)
         for buki in json_data:
-            path = "static/twitter_images/" + buki["name"]["ja_JP"] + ".jpg"
+            path = "static/twitter_images_orig/" + buki["name"]["ja_JP"] + ".jpg"
+            self.assertTrue(os.path.isfile(path), f"{path} does not exist")
+            path = "static/twitter_images_small/" + buki["name"]["ja_JP"] + ".jpg"
             self.assertTrue(os.path.isfile(path), f"{path} does not exist")
 
 if __name__ == "__main__":
