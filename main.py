@@ -211,6 +211,59 @@ def message_text(event):
         )
         return
 
+    if 'おはよ' in event.message.text.lower():
+        msg = "おはようございます！"
+        line_bot_api.reply_message(
+           event.reply_token,
+            TextSendMessage(text=msg)
+        )
+        return
+    if 'こんにちは' in event.message.text.lower():
+        msg = "こんにちは！"
+        line_bot_api.reply_message(
+           event.reply_token,
+            TextSendMessage(text=msg)
+        )
+        return
+    if 'こんばんは' in event.message.text.lower():
+        msg = "こんばんは！"
+        line_bot_api.reply_message(
+           event.reply_token,
+            TextSendMessage(text=msg)
+        )
+        return
+    if 'おやすみ' in event.message.text.lower():
+        msg = "おやすみなさい！"
+        line_bot_api.reply_message(
+           event.reply_token,
+            TextSendMessage(text=msg)
+        )
+        return
+    if '好き' in event.message.text.lower():
+        msg = "僕も好き！"
+        line_bot_api.reply_message(
+           event.reply_token,
+            TextSendMessage(text=msg)
+        )
+        return
+    if 'たんたん' in event.message.text.lower():
+        msg = "初めましてたんたん麺ですよろしくお願いします！"
+        line_bot_api.reply_message(
+           event.reply_token,
+            TextSendMessage(text=msg)
+        )
+        return
+    if 'りつ晩御飯' in event.message.text.lower():
+        with open('ice.txt', 'r') as f:
+            ice_list = f.read().split("\n")
+        ice = random.choice(ice_list)
+        msg = f"りつのおすすめ晩御飯: {ice}"
+        line_bot_api.reply_message(
+           event.reply_token,
+            TextSendMessage(text=msg)
+        )
+        return
+
 
     line_bot_api.reply_message(
         event.reply_token,
