@@ -127,11 +127,12 @@ def message_text(event):
         msg=f"{user}さんにおすすめのブキは{ja_name}({en_name})！"
         text_send_message = TextSendMessage(text=msg)
 
-        main_image_path = "static/" + path
-        preview_image_path = main_image_path
+        # original_content_url = "https://linebukibot.herokuapp.com/static/" + path
+        original_content_url = "https://placehold.jp/150x150.png"
+        preview_image_url = original_content_url
         image_send_message = ImageSendMessage(
-            original_content_url=f"https://linebukibot.herokuapp.com/{main_image_path}",
-            preview_image_url=f"https://linebukibot.herokuapp.com/{preview_image_path}"
+            original_content_url=original_content_url,
+            preview_image_url=preview_image_url
         )
 
         line_bot_api.reply_message(
