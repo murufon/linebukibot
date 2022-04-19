@@ -133,9 +133,13 @@ def message_text(event):
         preview_image_path = main_image_path
         line_bot_api.reply_message(
            event.reply_token,
+            # ImageSendMessage(
+            #     original_content_url=f"https://linebukibot.herokuapp.com/{main_image_path}",
+            #     preview_image_url=f"https://linebukibot.herokuapp.com/{preview_image_path}"
+            # )
             ImageSendMessage(
-                original_content_url=f"https://linebukibot.herokuapp.com/{main_image_path}",
-                preview_image_url=f"https://linebukibot.herokuapp.com/{preview_image_path}"
+                original_content_url="https://placehold.jp/150x150.png",
+                preview_image_url="https://placehold.jp/150x150.png"
             )
         )
         return
