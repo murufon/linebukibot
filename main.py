@@ -57,33 +57,33 @@ def getStageInfo(link, key, showRule=True):
     json_data = getJsonFromAPI(link)
     r = json_data['result']
     time_format = '%Y-%m-%dT%H:%M:%S'
-    msg = f"{key}のスケジュールはこちら！\n"
-    msg += "```\n"
+    msg = f"{key}のスケジュールはこちら！"
+    # msg += "```\n"
     for i in range(3):
         start = datetime.strptime(r[i]['start'], time_format)
         end = datetime.strptime(r[i]['end'], time_format)
-        msg += "\n" # markdownの最初の空行は無視される
+        msg += "\n\n"
         msg += f"{start.strftime('%H:%M')} - {end.strftime('%H:%M')}\n"
         if showRule:
             msg += f"{r[i]['rule']}\n"
-        msg += f"{r[i]['maps'][0]}/{r[i]['maps'][1]}\n"
-    msg += "```\n"
+        msg += f"{r[i]['maps'][0]}/{r[i]['maps'][1]}"
+    # msg += "```\n"
     return msg
 
 def getCoopInfo(link, key):
     json_data = getJsonFromAPI(link)
     r = json_data['result']
     time_format = '%Y-%m-%dT%H:%M:%S'
-    msg = f"{key}のスケジュールはこちら！\n"
-    msg += "```\n"
+    msg = f"{key}のスケジュールはこちら！"
+    # msg += "```\n"
     for i in range(2):
         start = datetime.strptime(r[i]['start'], time_format)
         end = datetime.strptime(r[i]['end'], time_format)
-        msg += "\n"
+        msg += "\n\n"
         msg += f"{start.strftime('%m/%d %H:%M')} - {end.strftime('%m/%d %H:%M')}\n"
         msg += f"{r[i]['stage']['name']}\n"
-        msg += f"{r[i]['weapons'][0]['name']}/{r[i]['weapons'][1]['name']}/{r[i]['weapons'][2]['name']}/{r[i]['weapons'][3]['name']}\n"
-    msg += "```\n"
+        msg += f"{r[i]['weapons'][0]['name']}/{r[i]['weapons'][1]['name']}/{r[i]['weapons'][2]['name']}/{r[i]['weapons'][3]['name']}"
+    # msg += "```\n"
     return msg
 
 def getDailyRandomString():
