@@ -32,6 +32,7 @@ from datetime import datetime, timedelta, timezone
 import requests
 import json
 import random
+import urllib
 
 app = Flask(__name__)
 
@@ -127,8 +128,9 @@ def message_text(event):
         msg=f"{user}さんにおすすめのブキは{ja_name}({en_name})！"
         text_send_message = TextSendMessage(text=msg)
 
-        # original_content_url = "https://linebukibot.herokuapp.com/static/" + path
-        original_content_url = "https://placehold.jp/150x150.png"
+        original_content_url = "https://linebukibot.herokuapp.com/static/" + path
+        # original_content_url = "https://placehold.jp/150x150.png"
+        original_content_url = urllib.parse.quote(original_content_url)
         preview_image_url = original_content_url
         image_send_message = ImageSendMessage(
             original_content_url=original_content_url,
