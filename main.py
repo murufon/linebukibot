@@ -120,12 +120,13 @@ def message_text(event):
         ja_name = buki["name"]["ja_JP"]
         en_name = buki["name"]["en_US"]
         path = "images/main/" + buki["name"]["ja_JP"] + ".png"
-        user = event.message.source.type
+        user = event.source.user
         msg=f"{user}さんにおすすめのブキは{ja_name}({en_name})！"
         line_bot_api.reply_message(
            event.reply_token,
             TextSendMessage(text=msg)
         )
+        return
 
     if event.message.text.lower() in ['gachi', 'ガチ', 'がち', 'gachima', 'ガチマ', 'がちま', 'ガチマッチ', 'がちまっち']:
         key = "ガチマッチ"
