@@ -251,20 +251,20 @@ def message_text(event):
             TextSendMessage(text=msg)
         )
         return
-    if '好き' in event.message.text.lower():
-        msg = "僕も好き！"
-        line_bot_api.reply_message(
-           event.reply_token,
-            TextSendMessage(text=msg)
-        )
-        return
-    if 'たんたん' in event.message.text.lower():
-        msg = "初めましてたんたん麺ですよろしくお願いします！"
-        line_bot_api.reply_message(
-           event.reply_token,
-            TextSendMessage(text=msg)
-        )
-        return
+    # if '好き' in event.message.text.lower():
+    #     msg = "僕も好き！"
+    #     line_bot_api.reply_message(
+    #        event.reply_token,
+    #         TextSendMessage(text=msg)
+    #     )
+    #     return
+    # if 'たんたん' in event.message.text.lower():
+    #     msg = "初めましてたんたん麺ですよろしくお願いします！"
+    #     line_bot_api.reply_message(
+    #        event.reply_token,
+    #         TextSendMessage(text=msg)
+    #     )
+    #     return
     if 'りつ晩御飯' in event.message.text.lower():
         with open('ice.txt', 'r') as f:
             ice_list = f.read().split("\n")
