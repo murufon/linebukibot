@@ -209,7 +209,7 @@ def message_text(event):
         )
         return
 
-    if 'まそ語録' in event.message.text.lower():
+    if 'まそ語録' == event.message.text.lower():
         with open('maso.txt', 'r') as f:
             maso_list = f.read().split("\n")
         profile = line_bot_api.get_profile(event.source.user_id)
@@ -265,7 +265,7 @@ def message_text(event):
             TextSendMessage(text=msg)
         )
         return
-    if 'りつ晩御飯' in event.message.text.lower():
+    if 'りつ晩御飯' == event.message.text.lower():
         with open('ice.txt', 'r') as f:
             ice_list = f.read().split("\n")
         ice = random.choice(ice_list)
