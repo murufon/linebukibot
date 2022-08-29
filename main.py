@@ -128,8 +128,8 @@ def message_text(event):
         text_send_message = TextSendMessage(text=msg)
 
         # NOTE: URL全体をクオートするとコロンなども変換されて無効なURLになるので注意
-        original_content_url = "https://linebukibot.herokuapp.com/static/twitter_images_orig/" + urllib.parse.quote(image_name)
-        preview_image_url = "https://linebukibot.herokuapp.com/static/twitter_images_small/" + urllib.parse.quote(image_name)
+        original_content_url = "https://line.kaio.ga/static/twitter_images_orig/" + urllib.parse.quote(image_name)
+        preview_image_url = "https://line.kaio.ga/static/twitter_images_small/" + urllib.parse.quote(image_name)
         image_send_message = ImageSendMessage(
             original_content_url=original_content_url,
             preview_image_url=preview_image_url
@@ -156,8 +156,8 @@ def message_text(event):
             text_send_message = TextSendMessage(text=msg)
 
             # NOTE: URL全体をクオートするとコロンなども変換されて無効なURLになるので注意
-            original_content_url = "https://linebukibot.herokuapp.com/static/twitter_images_orig/" + urllib.parse.quote(image_name)
-            preview_image_url = "https://linebukibot.herokuapp.com/static/twitter_images_small/" + urllib.parse.quote(image_name)
+            original_content_url = "https://line.kaio.ga/static/twitter_images_orig/" + urllib.parse.quote(image_name)
+            preview_image_url = "https://line.kaio.ga/static/twitter_images_small/" + urllib.parse.quote(image_name)
             image_send_message = ImageSendMessage(
                 original_content_url=original_content_url,
                 preview_image_url=preview_image_url
