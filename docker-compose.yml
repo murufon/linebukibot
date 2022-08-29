@@ -7,6 +7,8 @@ services:
     volumes:
       - "./:/root/bukibot"
     command: python main.py
+    ports:
+      - "5000:5000"
     environment:
       LINE_CHANNEL_SECRET: $LINE_CHANNEL_SECRET
       LINE_CHANNEL_ACCESS_TOKEN: $LINE_CHANNEL_ACCESS_TOKEN
